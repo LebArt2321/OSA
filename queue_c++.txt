@@ -1,0 +1,67 @@
+//#include <iostream>
+//#include <stdio.h>
+//#define SIZE 5
+//
+//void enQueue(int);
+//void deQueue();
+//void display();
+//
+//int items[SIZE], front = -1, rear = -1;
+//
+//int main() {
+//    setlocale(LC_ALL, "Russian");
+//    deQueue();
+//
+//    enQueue(1);
+//    enQueue(2);
+//    enQueue(3);
+//    enQueue(4);
+//    enQueue(5);
+//
+//    // Шестой элемент добавить нельзя — очередь заполнена
+//    enQueue(6);
+//
+//    display();
+//
+//    deQueue();
+//   
+//    display();
+//
+//    return 0;
+//}
+//
+//void enQueue(int value) {
+//    if (rear == SIZE - 1)
+//        printf("\nОчередь заполнена");
+//    else {
+//        if (front == -1)
+//            front = 0;
+//        rear++;
+//        items[rear] = value;
+//        printf("\nДобавлено значение -> %d", value);
+//    }
+//}
+//
+//void deQueue() {
+//    if (front == -1)
+//        printf("\nОчередь пуста");
+//    else {
+//        printf("\nУдален элемент: %d", items[front]);
+//        front++;
+//        if (front > rear)
+//            front = rear = -1;
+//    }
+//}
+//
+//// Функция выводит очередь в консоль
+//void display() {
+//    if (rear == -1)
+//        printf("\nОчередь пуста");
+//    else {
+//        int i;
+//        printf("\nЭлементы очереди:\n");
+//        for (i = front; i <= rear; i++)
+//            printf("%d  ", items[i]);
+//    }
+//    printf("\n");
+//}

@@ -1,0 +1,187 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+struct Human {
+	int age;
+	string FIO;
+	string adress;
+};
+
+void Push_All(int& n, Human* a) {
+	for (int i = 0; i < n; i++) {
+		cin.get();
+		cout << "Введите фамилию имя отчество " << i+1 << " человека ";
+		getline(cin, a[i].FIO);
+		/*cin >> a[i].FIO;*/
+		cout << "Введите адресс " << i+1 << " человека ";
+		getline(cin, a[i].adress);
+		/*cin >> a[i].adress;*/
+		cout << "Введите год рождения " << i+1 << " человека "; 
+		cin >> a[i].age;
+		cout << endl;
+	}
+}
+
+void Push(int index, Human* a) { 
+	cin.get();
+	cout << "Введите фамилию имя отчество " << index+1 << " человека ";  
+	getline(cin, a[index].FIO);
+	/*cin >> a[index].FIO;*/
+	cout << "Введите адресс " << index+1 << " человека "; 
+	getline(cin, a[index].adress);
+	/*cin >> a[index].adress;*/
+	cout << "Введите год рождения " << index+1 << " человека ";
+	cin >> a[index].age;
+	cout << endl;
+}
+
+void Print_All(int& n, Human* a) { 
+	for (int i = 0; i < n; i++) {
+		cout << "Фамилия имя отчество " << i+1 << " человека ";  
+		cout << a[i].FIO << endl;
+		cout << "Адресс " << i+1 << " человека ";  
+		cout << a[i].adress << endl;
+		cout << "Год рождения " << i+1 << " человека ";
+		cout << a[i].age << endl;
+		cout << endl;
+	}
+}
+
+void Print(int index, Human* a) { 
+	cout << "Фамилию имя отчество " << index+1 << " человека ";
+	cout << a[index].FIO << endl;
+	cout << "Адресс " << index+1 << " человека "; 
+	cout << a[index].adress << endl;
+	cout << "Год рождения " << index+1 << " человека ";
+	cout << a[index].age << endl;
+	cout << endl;
+}
+
+int First_Empty(int n, Human* a) { 
+	for (int i = 0; i < n; i++) {
+		if (a[i].FIO.empty() == 1) {
+			return i;
+		}
+	}
+}
+
+void Erase(int index, Human* a) {
+	a[index].FIO = "\0";
+	a[index].adress = "\0";
+	a[index].age = 0;
+}
+
+int Search(int& n, int search_key, Human* a) { //функция, которая произведет поиск по заданному ключу
+	for (int i = 0; i < n; i++) {
+		if (a[i].age == search_key) {
+			cout << "Мы нашли год рождения человека " << i+1;
+			return i;
+		}
+	}
+}
+
+int Search(int& n, string search_key, Human* a) { //функция, которая произведет поиск по заданному ключу
+	for (int i = 0; i < n; i++) {
+		if (a[i].FIO == search_key) {
+			cout << "Мы нашли фамилию человека " << i+1 << endl;
+			return i;
+		}
+
+		if (a[i].adress == search_key) {
+			cout << "Мы нашли адресс человека " << i+1 << endl;
+			return i;
+		}
+	}
+}
+
+int Search_min(int& n, Human* a) { 
+	int temp_min = INT_MAX;
+	int temp_i;
+	for (int i = 0; i < n; i++) {
+		if (a[i].age < temp_min) {
+			temp_min = a[i].age;
+			temp_i = i;
+		}
+	}
+	cout << "Минимальный год рождения " << temp_min << endl;
+	cout << "У " << temp_i+1 << " человека" << endl;
+	return temp_min;
+}
+
+void sort_max(int& n, Human* a)
+{
+	Human insertion;
+	int temp;
+	for (int i = 0; i < n-1 ; i++) {
+		for (int j = 0; j < n-i-1; j++) {
+			if (a[j].age > a[j + 1].age) {
+				// меняем элементы местами
+				temp = a[j].age;
+				a[j].age = a[j + 1].age;
+				a[j + 1].age = temp;
+			}
+		}
+	}
+}
+
+void sort_min(int& n, Human *a) 
+{
+	Human insertion;
+	int temp;
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = 0; j < n - i - 1; j++) {
+			if (a[j].age < a[j + 1].age) {
+				// меняем элементы местами
+				temp = a[j].age;
+				a[j].age = a[j + 1].age;
+				a[j + 1].age = temp;
+			}
+		}
+	}
+}
+
+void Print_in_txt(int& n, Human *a) {
+	ofstream fout("Люди.txt");
+	fout << setw(25) << "ФИО человека" << setw(25) << "адресс человека" << setw(25) << "др человека" << endl;
+	for (int i = 0; i < n; i++)
+	{
+		fout << setw(25) << a[i].FIO << setw(25) << a[i].adress << setw(25) << a[i].age << endl;
+	}
+	fout.close();
+}
+
+void file_Read()
+{
+	string str;
+	ifstream in("Люди.txt");
+	while (getline(in, str))
+		cout << str << endl;
+
+	in.close();
+}
+
+
+int main() {
+	setlocale(LC_ALL, "rus");
+
+	int n;
+	cout << "Введите количество людей: ";
+	cin >> n;
+	Human *a = new Human[n];
+
+	//cout << "Первый пустой элемент под индексом " << First_Empty(n, a) << endl;
+	Push_All(n, a);
+	Print_All(n, a);
+
+	Print_in_txt(n, a);
+	file_Read();
+
+	system("PAUSE");
+	return 0;
+
+}
+
+

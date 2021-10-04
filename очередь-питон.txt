@@ -1,0 +1,23 @@
+def create_queue():
+    queue = []
+    return queue
+
+def check_empty(queue):
+    return len(queue) == 0
+
+def push(queue, item):
+    queue.append(item)
+    print("Добавлен элемент: " + item)
+
+def pop(queue):
+    if (check_empty(queue)):
+        return "Очередь пуста"
+    return queue.pop(0)
+
+queue = create_queue()
+push(queue, str(1))
+push(queue, str(2))
+push(queue, str(3))
+push(queue, str(4))
+print("Удаленный элемент: " + pop(queue))
+print("Очередь после добавления элемента: " + str(queue))
